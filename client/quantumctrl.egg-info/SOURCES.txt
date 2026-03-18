@@ -1,8 +1,0 @@
-setup.py
-quantumctrl/__init__.py
-quantumctrl/client.py
-quantumctrl/protocol.py
-quantumctrl.egg-info/PKG-INFO
-quantumctrl.egg-info/SOURCES.txt
-quantumctrl.egg-info/dependency_links.txt
-quantumctrl.egg-info/top_level.txt
