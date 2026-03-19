@@ -4,6 +4,16 @@ A TCP server that exposes a bank of 256 hardware registers over a simple binary 
 
 The server is written in C++17 and handles concurrent clients via a fixed thread pool. The Python client (`quantumctrl`) mirrors the wire protocol and provides a minimal `read`/`write` API.
 
+## What this simulates
+
+This project simulates the register interface of an FPGA peripheral. In real hardware, a host CPU communicates with an FPGA over a bus (e.g. AXI-Lite or PCIe) by reading and writing a flat address space of memory-mapped registers. The FPGA exposes configuration, status, and data registers at fixed addresses; the driver issues byte-level read/write transactions to control it.
+
+`register-bridge` replaces that hardware bus with a TCP connection, keeping the same register-address model and binary packet framing. The C++ server plays the role of the FPGA register file; the Python client plays the role of the host driver. This makes the project useful for:
+
+- practising register-level programming and binary protocol design without real hardware
+- testing driver code against a controlled, in-process register backend
+- demonstrating multi-threaded server architecture and clean library API design
+
 ## Repository layout
 
 ```
