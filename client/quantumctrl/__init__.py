@@ -1,3 +1,3 @@
-from .client import FPGAClient
+from .client import RegisterClient
 
-__all__ = ["FPGAClient"]
+__all__ = ["RegisterClient"]

@@ -1,4 +1,4 @@
-# fpga-register-bridge
+# register-bridge
 
 A TCP server that exposes a bank of 256 hardware registers over a simple binary protocol, with a Python client library for reading and writing those registers.
 
@@ -19,7 +19,7 @@ docs/plans/      Design documents
 ```
   Python Client (quantumctrl)
   ┌──────────────────────────────┐
-  │ FPGAClient                   │
+  │ RegisterClient                   │
   │   read(addr) / write(addr,v) │
   │         │                    │
   │   protocol.py                │
@@ -28,7 +28,7 @@ docs/plans/      Design documents
                  │ TCP (port 5555)
                  │ 7-byte packets
   ───────────────┼───────────────
-  C++ Server (fpga_bridge)
+  C++ Server (register_bridge)
   ┌──────────────┴───────────────┐
   │ Server                       │
   │   TCP accept loop            │
@@ -74,13 +74,13 @@ cmake -B build
 cmake --build build
 ```
 
-The server binary is at `build/server/fpga_bridge`.
+The server binary is at `build/server/register_bridge`.
 
 ## Running the server
 
 ```sh
-./build/server/fpga_bridge             # default port 5555
-./build/server/fpga_bridge --port 6000 # custom port
+./build/server/register_bridge             # default port 5555
+./build/server/register_bridge --port 6000 # custom port
 ```
 
 ## Python client
@@ -92,9 +92,9 @@ pip install -e client/
 ```
 
 ```python
-from quantumctrl.client import FPGAClient
+from quantumctrl.client import RegisterClient
 
-c = FPGAClient("localhost", 5555)
+c = RegisterClient("localhost", 5555)
 c.connect()
 c.write(0x10, 0xDEADBEEF)
 print(hex(c.read(0x10)))   # 0xdeadbeef
@@ -119,5 +119,5 @@ pytest tests/python/test_protocol.py tests/python/test_client.py -v
 **Integration tests** (requires the server binary to be built first)
 
 ```sh
-SERVER_BINARY=./build/server/fpga_bridge pytest tests/python/test_integration.py -v
+SERVER_BINARY=./build/server/register_bridge pytest tests/python/test_integration.py -v
 ```

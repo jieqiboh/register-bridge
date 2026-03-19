@@ -1,7 +1,7 @@
 import pytest
 import socket
 from unittest.mock import MagicMock, patch
-from quantumctrl.client import FPGAClient
+from quantumctrl.client import RegisterClient
 from quantumctrl.protocol import Opcode, pack_request
 
 
@@ -11,8 +11,8 @@ def _ack(address: int, value: int) -> bytes:
 
 @pytest.fixture
 def client_with_mock_socket():
-    """Return an FPGAClient with a pre-attached mock socket."""
-    client = FPGAClient("localhost", 5555)
+    """Return an RegisterClient with a pre-attached mock socket."""
+    client = RegisterClient("localhost", 5555)
     mock_sock = MagicMock()
     client._sock = mock_sock
     return client, mock_sock
@@ -51,7 +51,7 @@ def test_write_raises_on_err_response(client_with_mock_socket):
 
 
 def test_connect_opens_socket():
-    client = FPGAClient("localhost", 5555)
+    client = RegisterClient("localhost", 5555)
     with patch("socket.socket") as mock_cls:
         mock_sock = MagicMock()
         mock_cls.return_value = mock_sock
@@ -67,5 +67,5 @@ def test_disconnect_closes_socket(client_with_mock_socket):
 
 
 def test_disconnect_is_idempotent():
-    client = FPGAClient("localhost", 5555)
+    client = RegisterClient("localhost", 5555)
     client.disconnect()  # should not raise when not connected

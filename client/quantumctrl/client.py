@@ -2,7 +2,7 @@ import socket
 from .protocol import Opcode, PACKET_SIZE, pack_request, unpack_response
 
 
-class FPGAClient:
+class RegisterClient:
     def __init__(self, host: str, port: int) -> None:
         self._host = host
         self._port = port

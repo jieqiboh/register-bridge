@@ -1,16 +1,16 @@
 """
-Integration tests: spin up the real server binary, exercise it via FPGAClient.
+Integration tests: spin up the real server binary, exercise it via RegisterClient.
 
 Run with:
-    SERVER_BINARY=./build/server/fpga_bridge pytest tests/python/test_integration.py -v
+    SERVER_BINARY=./build/server/register_bridge pytest tests/python/test_integration.py -v
 """
 import os
 import subprocess
 import time
 import pytest
-from quantumctrl.client import FPGAClient
+from quantumctrl.client import RegisterClient
 
-SERVER_BINARY = os.environ.get("SERVER_BINARY", "./build/server/fpga_bridge")
+SERVER_BINARY = os.environ.get("SERVER_BINARY", "./build/server/register_bridge")
 PORT = 15666  # different from default to avoid conflicts
 
 
@@ -31,7 +31,7 @@ def server():
 @pytest.fixture
 def client(server):
     """Fresh connected client per test."""
-    c = FPGAClient("localhost", PORT)
+    c = RegisterClient("localhost", PORT)
     c.connect()
     yield c
     c.disconnect()

@@ -5,13 +5,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 
-add_executable(fpga_bridge_tests
+add_executable(register_bridge_tests
     test_protocol.cpp
     test_register_bank.cpp
     test_thread_pool.cpp
 )
-target_link_libraries(fpga_bridge_tests
-    PRIVATE fpga_bridge_lib GTest::gtest_main
+target_link_libraries(register_bridge_tests
+    PRIVATE register_bridge_lib GTest::gtest_main
 )
 include(GoogleTest)
-gtest_discover_tests(fpga_bridge_tests)
+gtest_discover_tests(register_bridge_tests)
