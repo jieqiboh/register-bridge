@@ -1,6 +1,7 @@
 #pragma once
 #include "register_bank.hpp"
 #include "thread_pool.hpp"
+#include <atomic>
 
 class Server {
 public:
@@ -14,7 +15,7 @@ private:
 
     int          port_;
     int          server_fd_ = -1;
-    bool         running_   = false;
+    std::atomic<bool> running_   {false};
     ThreadPool   pool_;
     RegisterBank bank_;
 };
